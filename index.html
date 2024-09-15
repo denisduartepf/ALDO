@@ -3,57 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAP ALDO</title>
+    <title>Calculadora do Gerente</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 100%;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto 20px;
         }
         input {
-            width: calc(100% - 16px);
-            margin-bottom: 10px;
-            padding: 8px;
+            width: calc(100% - 20px);
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
         label {
-            margin-top: 10px;
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
+            color: #555;
         }
         button {
-            padding: 10px 15px;
+            padding: 12px;
             background-color: #4CAF50;
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
             width: 100%;
+            font-size: 16px;
         }
         button:hover {
             background-color: #45a049;
         }
         .result {
             margin-top: 20px;
-            padding: 10px;
-            background-color: #f1f1f1;
+            padding: 15px;
+            background-color: #fff;
             border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        img { 
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <img src= "C:\Users\Denis\Desktop\calculadora combustivel\aldo.png" alt="imagem de cabeçalho">
-    <br>
+    <img src="C:\Users\Denis\Desktop\calculadora combustivel\TopGap\aldo.png" alt="imagem de cabeçalho">
     <h2>Calculadora do Gerente</h2>
 
-    <!-- Inputs -->
     <label for="margem">Margem por litro (centavos):</label>
     <input type="number" id="margem" placeholder="Ex: 50" step="0.01">
 
-    <label for="despesa">Despesa Orçada(R$):</label>
+    <label for="despesa">Despesa Orçada (R$):</label>
     <input type="number" id="despesa" placeholder="Ex: 5000" step="0.01">
 
     <label for="projVendas">Projeção de vendas (litros):</label>
@@ -64,13 +82,11 @@
 
     <button onclick="calcular()">Calcular</button>
 
-    <!-- Área para exibir os resultados -->
     <div class="result" id="result"></div>
 
     <script>
         function calcular() {
-            // Pegando os valores inseridos pelo usuário
-            let margem = parseFloat(document.getElementById('margem').value) / 100; // Convertendo centavos para reais
+            let margem = parseFloat(document.getElementById('margem').value) / 100;
             let despesa = parseFloat(document.getElementById('despesa').value);
             let projVendas = parseFloat(document.getElementById('projVendas').value);
             let lucroLoja = parseFloat(document.getElementById('lucroLoja').value);
@@ -80,27 +96,20 @@
                 return;
             }
 
-            // Cálculo de litros necessários para cobrir as despesas
             let litrosNecessarios = despesa / margem;
-            let litrosPorDia = litrosNecessarios / 30; // Aproximando por 30 dias
+            let litrosPorDia = litrosNecessarios / 30;
 
-            // Cálculo do lucro/prejuízo sem considerar a loja
             let lucroPrejuizo = (margem * projVendas) - despesa;
-
-            // Cálculo do lucro/prejuízo considerando a loja
             let lucroPrejuizoComLoja = lucroPrejuizo + lucroLoja;
 
-            // Formatando os números com separação de milhares e casas decimais
             let litrosNecessariosFormatado = litrosNecessarios.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
             let litrosPorDiaFormatado = litrosPorDia.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
             let lucroPrejuizoFormatado = lucroPrejuizo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             let lucroPrejuizoComLojaFormatado = lucroPrejuizoComLoja.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-            // Determinando lucro ou prejuízo
             let resultadoLucroPrejuizo = lucroPrejuizo >= 0 ? 'Lucro' : 'Prejuízo';
             let resultadoLucroPrejuizoComLoja = lucroPrejuizoComLoja >= 0 ? 'Lucro' : 'Prejuízo';
 
-            // Exibindo os resultados
             document.getElementById('result').innerHTML = `
                 <p><strong>Litros necessários para pagar as despesas:</strong> ${litrosNecessariosFormatado} litros por mês (${litrosPorDiaFormatado} litros por dia).</p>
                 <p><strong>Resultado do mês (sem lucro da loja):</strong> ${lucroPrejuizoFormatado} (${resultadoLucroPrejuizo})</p>
@@ -109,7 +118,7 @@
         }
     </script>
     <footer>
-        <p> Desenvolvido por [Denis Duarte]</p>
+        <p>Desenvolvido por Denis Duarte</p>
     </footer>
 </body>
 </html>
